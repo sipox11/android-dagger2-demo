@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import com.sipox11.android_dagger2_demo.config.qualifiers.AppContext;
 import com.sipox11.android_dagger2_demo.config.qualifiers.DatabaseInfo;
-import com.sipox11.android_dagger2_demo.data.local.helpers.SharedPrefsHelper;
+import com.sipox11.android_dagger2_demo.config.scopes.AppScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,29 +20,34 @@ public class AppModule {
         this.app = app;
     }
 
+    @AppScope
     @Provides
     @AppContext
     public Context provideContext() {
         return app;
     }
 
+    @AppScope
     @Provides
     public Application provideApp() {
         return app;
     }
 
+    @AppScope
     @Provides
     @DatabaseInfo
     public String provideDatabaseName() {
         return "demo-dagger2.db";
     }
 
+    @AppScope
     @Provides
     @DatabaseInfo
     public int provideDatabaseVersion() {
         return 1;
     }
 
+    @AppScope
     @Provides
     public SharedPreferences provideSharedPreferences() {
         return app.getSharedPreferences("demo-prefs", Context.MODE_PRIVATE);
