@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.sipox11.android_dagger2_demo.R;
 import com.sipox11.android_dagger2_demo.config.GlobalApplication;
+import com.sipox11.android_dagger2_demo.config.components.DaggerActivityComponent;
+import com.sipox11.android_dagger2_demo.config.modules.ActivityModule;
 import com.sipox11.android_dagger2_demo.data.local.DataLayer;
 import com.sipox11.android_dagger2_demo.data.models.User;
 
@@ -17,27 +19,19 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     DataLayer dataLayer;
 
-    private ActivityComponent activityComponent;
-
     private TextView mTvUserInfo;
     private TextView mTvAccessToken;
-
-    public ActivityComponent getActivityComponent() {
-        if (activityComponent == null) {
-            activityComponent = DaggerActivityComponent.builder()
-                    .activityModule(new ActivityModule(this))
-                    .applicationComponent(GlobalApplication.get(this).getComponent())
-                    .build();
-        }
-        return activityComponent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getActivityComponent().inject(this);
+        DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(GlobalApplication.get(this).getComponent())
+                .build()
+                .inject(this);
 
         mTvUserInfo = findViewById(R.id.tv_user_info);
         mTvAccessToken = findViewById(R.id.tv_access_token);

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.sipox11.android_dagger2_demo.config.GlobalApplication;
 import com.sipox11.android_dagger2_demo.config.qualifiers.AppContext;
 import com.sipox11.android_dagger2_demo.config.qualifiers.DatabaseInfo;
 import com.sipox11.android_dagger2_demo.config.scopes.AppScope;
@@ -14,9 +15,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private final Application app;
+    private final GlobalApplication app;
 
-    public AppModule(Application app) {
+    public AppModule(GlobalApplication app) {
         this.app = app;
     }
 
@@ -29,7 +30,7 @@ public class AppModule {
 
     @AppScope
     @Provides
-    public Application provideApp() {
+    public GlobalApplication provideApp() {
         return app;
     }
 
