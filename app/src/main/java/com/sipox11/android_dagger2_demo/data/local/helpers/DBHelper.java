@@ -1,4 +1,4 @@
-package com.sipox11.android_dagger2_demo.data.local;
+package com.sipox11.android_dagger2_demo.data.local.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    protected User getUser(Long userId) throws Resources.NotFoundException, NullPointerException {
+    public User getUser(Long userId) throws Resources.NotFoundException, NullPointerException {
         Cursor cursor = null;
         try {
             SQLiteDatabase db = this.getReadableDatabase();
@@ -96,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    protected Long insertUser(User user) throws Exception {
+    public Long insertUser(User user) throws Exception {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
